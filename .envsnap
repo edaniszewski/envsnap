@@ -1,0 +1,20 @@
+# envsnap configuration (yaml format)
+# use 'envsnap show' to generate an environment snapshot
+# for more details, see: https://www.github.com/edaniszewski/envsnap
+
+version: 1
+
+system:
+  core:
+  - os
+  - arch
+  - cpus
+  - kernel
+  - kernel-version
+  - processor
+
+go:
+  core:
+  - version
+  - gopath
+  - goroot
