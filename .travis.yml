@@ -1,0 +1,23 @@
+dist: xenial
+language: go
+go:
+  - 1.13.x
+services:
+  - docker
+before_script:
+  - curl -sfL https://install.goreleaser.com/github.com/goreleaser/goreleaser.sh | sh
+script:
+  - make lint
+  - make build
+  - make test
+  - test -n "$TRAVIS_TAG" || ./goreleaser --snapshot
+after_success:
+  - test -n "$TRAVIS_TAG" && docker login -u="$DOCKER_USER" -p="$DOCKER_PASSWORD"
+deploy:
+  - provider: script
+    skip_cleanup: true
+    script: curl -sL https://git.io/goreleaser | bash
+    on:
+      tags: true
+notifications:
+  email: false
