@@ -20,10 +20,10 @@ func LoadSystemInfo() (SysInfo, error) {
 	info := toSlice(stdout.Bytes())
 
 	return SysInfo{
-		OS: runtime.GOOS,
-		Kernel: info[0],
+		OS:            runtime.GOOS,
+		Kernel:        info[0],
 		KernelVersion: info[1],
-		Processor: info[2],
-		Arch: info[3],
+		Processor:     info[2],
+		Arch:          info[3],
 	}, nil
 }

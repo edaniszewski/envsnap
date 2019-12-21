@@ -53,7 +53,19 @@ func (c PythonConfig) Render() (Result, error) {
 				cliWarnings.Add("python.core.version", "unable to determine version of python")
 				continue
 			}
-			result.Version = toSlice(stdout.Bytes())[1]
+
+			// In some cases, it appears that the version can be written out
+			// to stderr, which is the cases for tests running in CI. Check
+			// stderr if stdout is empty.
+			ver := stdout.Bytes()
+			if len(ver) == 0 {
+				ver = stderr.Bytes()
+			}
+			if len(ver) == 0 {
+				l.Debug("command error: failed to get python version")
+				cliWarnings.Add("python.core.version", "failed to get version from stdout or stderr")
+			}
+			result.Version = toSlice(ver)[1]
 
 		case "py2":
 			if !binExists("python2") {
@@ -70,7 +82,19 @@ func (c PythonConfig) Render() (Result, error) {
 				cliWarnings.Add("python.core.py2", "unable to determine version of python2")
 				continue
 			}
-			result.VersionPy2 = toSlice(stdout.Bytes())[1]
+
+			// In some cases, it appears that the version can be written out
+			// to stderr, which is the cases for tests running in CI. Check
+			// stderr if stdout is empty.
+			ver := stdout.Bytes()
+			if len(ver) == 0 {
+				ver = stderr.Bytes()
+			}
+			if len(ver) == 0 {
+				l.Debug("command error: failed to get python2 version")
+				cliWarnings.Add("python.core.py2", "failed to get version from stdout or stderr")
+			}
+			result.VersionPy2 = toSlice(ver)[1]
 
 		case "py3":
 			if !binExists("python3") {
@@ -87,7 +111,19 @@ func (c PythonConfig) Render() (Result, error) {
 				cliWarnings.Add("python.core.py3", "unable to determine version of python3")
 				continue
 			}
-			result.VersionPy3 = toSlice(stdout.Bytes())[1]
+
+			// In some cases, it appears that the version can be written out
+			// to stderr, which is the cases for tests running in CI. Check
+			// stderr if stdout is empty.
+			ver := stdout.Bytes()
+			if len(ver) == 0 {
+				ver = stderr.Bytes()
+			}
+			if len(ver) == 0 {
+				l.Debug("command error: failed to get python3 version")
+				cliWarnings.Add("python.core.py3", "failed to get version from stdout or stderr")
+			}
+			result.VersionPy3 = toSlice(ver)[1]
 
 		default:
 			return result, fmt.Errorf("unsupported option for python.core: %s", opt)

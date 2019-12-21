@@ -1,14 +1,19 @@
-
+project_name: envsnap
+before:
+  hooks:
+    - go mod download
 builds:
-  - env:
-      - CGO_ENABLED = 0
+  - 
+    main: ./cmd/envsnap.go
+    env:
+      - CGO_ENABLED=0
     goos:
       - linux
       - darwin
     goarch:
       - amd64
 checksum:
-  name_template: '{{ .ProjectName }}_checksums.txt'
+  name_template: '{{ .ProjectName }}-checksums-{{ .Tag }}.txt'
 changelog:
   sort: asc
   filters:
@@ -18,10 +23,33 @@ changelog:
       - Merge pull request
       - Merge branch
 dockers:
-  - image_templates:
-      - ''
+  -
+    goos: linux
+    goarch: amd64
+    binaries:
+      - envsnap
+    image_templates:
+      - 'edaniszewski/envsnap:{{ .Tag }}'
+      - 'edaniszewski/envsnap:{{ .Major }}'
+      - 'edaniszewski/envsnap:{{ .Major }}.{{ .Minor }}'
+      - 'edaniszewski/envsnap:latest'
+    build_flag_templates:
+      - '--label=org.label-schema.version={{ .Version }}'
+      - '--label=org.label-schema.build-date={{ .Date }}'
+      - '--label=org.label-schema.vcs-ref={{ .ShortCommit }}'
 archives:
-  - name_template: '{{ .ProjectName }}_{{ .Os }}_{{ .Arch }}'
+  - 
+    format: tar.gz
+    name_template: '{{ .ProjectName }}_{{ .Os }}_{{ .Arch }}'
     replacements:
       darwin: darwin
       linix: linux
+snapshot:
+  name_template: '{{ .Tag }}-next'
+release:
+  github:
+    owner: edaniszewski
+    name: envsnap
+  draft: false
+  prerelease: auto
+  name_template: '{{ .Version }}'
