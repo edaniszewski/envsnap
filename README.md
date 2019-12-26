@@ -47,12 +47,110 @@ $ envsnap render
 - _goroot_: /usr/local/Cellar/go/1.13.4/libexec
 - _gopath_: /Users/edaniszewski/go
 
-
 ```
 
 ## Configuration
 
-coming soon
+The `envsnap` configuration is kept in the YAML-formatted `.envsnap` file which should be placed
+in the root directory of your repository. Below is a description of the different configuration
+sections and the options for each.
+
+### Environment
+
+Render information found in environment variables.
+
+*Top-level key:* `environment`
+
+| Option | Description |
+| :--- | :--- |
+| `variables` | A list of environment variable names whose values are rendered. |
+
+#### Example
+
+```yaml
+environment:
+  - PATH
+  - KUBECONFIG
+```
+
+### Exec
+
+Render information from executing arbitrary commands.
+
+*Top-level key:* `exec`
+
+| Option | Description |
+| :--- | :--- |
+| `run` | A list of commands to run, the outputs of which are collected and rendered. |
+
+#### Example
+
+```yaml
+exec:
+  - kubectl version
+  - docker --version
+```
+
+### Golang
+
+Render information about your local Golang installation.
+
+*Top-level key:* `go`
+
+| Option | Description |
+| :--- | :--- |
+| `core` | A list of core Golang data to render. Valid list values include: `version`, `goroot`, `gopath`. |
+
+#### Example
+
+```yaml
+go:
+  core:
+    - version
+    - gopath
+```
+
+### Python
+
+Render information about your local Python installation.
+
+*Top-level key:* `python`
+
+| Option | Description |
+| :--- | :--- |
+| `core` | A list of core Python data to render. Valid list values include: `version`, `py2`, `py3` | 
+| `dependencies.packages` | A list of Python packages describing a project's dependencies. The installed version for each dependency is rendered. |
+
+#### Example
+
+```yaml
+python:
+  core:
+    - version
+  dependencies:
+    packages:
+      - aiohttp
+      - aiocache
+```
+
+### System
+
+Render information about your system.
+
+*Top-level key:* `system`
+
+| Option | Description |
+| :--- | :--- |
+| `core` | A list of core system data to render. Valid list values include: `os`, `arch`, `cpus`, `kernel`, `kernel_version` (or `kernel-version`), `processor` |
+
+#### Example
+
+```yaml
+system:
+  core:
+    - os
+    - arch
+```
 
 ## License
 
