@@ -3,18 +3,10 @@
 # for more details, see: https://www.github.com/edaniszewski/envsnap
 
 version: 1
-
 system:
   core:
   - os
   - arch
-  - cpus
-  - kernel
-  - kernel-version
-  - processor
-
 go:
   core:
   - version
-  - gopath
-  - goroot
