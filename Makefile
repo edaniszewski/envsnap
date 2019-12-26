@@ -6,11 +6,24 @@ BIN_NAME    := envsnap
 BIN_VERSION := 0.1.0
 IMG_NAME	:= edaniszewski/envsnap
 
+GIT_COMMIT  ?= $(shell git rev-parse --short HEAD 2> /dev/null || true)
+GIT_TAG     ?= $(shell git describe --tags 2> /dev/null || true)
+BUILD_DATE  := $(shell date -u +%Y-%m-%dT%T 2> /dev/null)
+GO_VERSION  := $(shell go version | awk '{ print $$3 }')
+
+PKG_CTX := github.com/edaniszewski/envsnap/pkg
+LDFLAGS := -w \
+	-X ${PKG_CTX}.BuildDate=${BUILD_DATE} \
+	-X ${PKG_CTX}.Commit=${GIT_COMMIT} \
+	-X ${PKG_CTX}.Tag=${GIT_TAG} \
+	-X ${PKG_CTX}.GoVersion=${GO_VERSION} \
+	-X ${PKG_CTX}.Version=${BIN_VERSION}
+
 .PHONY: build clean cover docker fmt github-tag lint test version help
 
 
 build:  ## Build the binary
-	go build cmd/envsnap.go
+	CGO_ENABLED=0 go build -a -installsuffix cgo -ldflags "${LDFLAGS}" cmd/envsnap.go
 
 clean:  ## Clean build and test artifacts
 	@rm envsnap
