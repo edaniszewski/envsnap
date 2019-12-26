@@ -3,8 +3,8 @@
 #
 
 BIN_NAME    := envsnap
-BIN_VERSION := 0.1.0
-IMG_NAME	:= edaniszewski/envsnap
+BIN_VERSION := 0.1.1
+IMG_NAME    := edaniszewski/envsnap
 
 GIT_COMMIT  ?= $(shell git rev-parse --short HEAD 2> /dev/null || true)
 GIT_TAG     ?= $(shell git describe --tags 2> /dev/null || true)
