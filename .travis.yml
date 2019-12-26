@@ -5,7 +5,7 @@ go:
 services:
   - docker
 install:
-  - go get -u golang.org/x/lint/golint
+  - GO111MODULE=off go get -u golang.org/x/lint/golint
 script:
   - make lint
   - make build
@@ -18,7 +18,7 @@ after_success:
 deploy:
   - provider: script
     skip_cleanup: true
-    script: curl -sL https://git.io/goreleaser | bash
+    script: curl -sL https://git.io/goreleaser | bash -s -- --debug --rm-dist
     on:
       tags: true
 notifications:
