@@ -69,8 +69,9 @@ Render information found in environment variables.
 
 ```yaml
 environment:
-  - PATH
-  - KUBECONFIG
+  variables:
+    - PATH
+    - KUBECONFIG
 ```
 
 ### Exec
@@ -87,8 +88,9 @@ Render information from executing arbitrary commands.
 
 ```yaml
 exec:
-  - kubectl version
-  - docker --version
+  run:
+    - kubectl version
+    - docker --version
 ```
 
 ### Golang
