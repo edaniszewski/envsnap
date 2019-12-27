@@ -3,7 +3,7 @@
 #
 
 BIN_NAME    := envsnap
-BIN_VERSION := 0.1.2
+BIN_VERSION := 0.1.3
 IMG_NAME    := edaniszewski/envsnap
 
 GIT_COMMIT  ?= $(shell git rev-parse --short HEAD 2> /dev/null || true)
