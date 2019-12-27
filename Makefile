@@ -23,7 +23,7 @@ LDFLAGS := -w \
 
 
 build:  ## Build the binary
-	CGO_ENABLED=0 go build -a -installsuffix cgo -ldflags "${LDFLAGS}" cmd/envsnap.go
+	CGO_ENABLED=0 go build -ldflags "${LDFLAGS}" cmd/envsnap.go
 
 clean:  ## Clean build and test artifacts
 	@rm envsnap

@@ -60,4 +60,15 @@ archives:
     replacements:
       darwin: darwin
       linix: linux
-
+brews:
+  -
+    github:
+      owner: edaniszewski
+      name: homebrew-tap
+    commit_author:
+      name: edaniszewski
+      email: 'edaniszewski@gmail.com'
+    homepage: 'https://github.com/edaniszewski/envsnap'
+    description: 'Project-defined user environment snapshots for debugging and reporting'
+    test: |
+      system "#{bin}/envsnap --version"
