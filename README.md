@@ -2,7 +2,7 @@
 # envsnap
 
 [![Build Status](https://travis-ci.org/edaniszewski/envsnap.svg?branch=master)](https://travis-ci.org/edaniszewski/envsnap)
-
+[![Go Report Card](https://goreportcard.com/badge/github.com/edaniszewski/envsnap)](https://goreportcard.com/report/github.com/edaniszewski/envsnap)
 
 `envsnap` is a small command-line utility for generating snapshots of a development
 or runtime environment to aid in debugging and issue reporting.
