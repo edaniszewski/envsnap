@@ -17,7 +17,19 @@ reporting an issue. Let the project define it, and let `envsnap` collect it.
 
 ## Installation
 
-coming soon
+From package manager:
+
+```bash
+# macOS
+brew install edaniszewski/homebrew-tap/envsnap
+```
+
+The binary may also be installed from the project's [releases page](https://github.com/edaniszewski/envsnap/releases).
+
+You can also use `go get`:
+```bash
+go get github.com/edaniszewski/envsnap
+```
 
 ## Usage
 
